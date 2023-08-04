@@ -22,12 +22,9 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip setuptools wheel twine
           python3 -m pip install -r requirements.txt
-      - name: Install module
-        run: |
-          python3 setup.py install
       - name: Test with coverage and pytest
         run: |
-          python3 -m pytest tests/
+          make test
       - name: Generate distribution archives
         run: |
           python3 setup.py sdist bdist_wheel

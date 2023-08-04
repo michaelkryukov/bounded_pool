@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/bounded-pool.svg)](https://badge.fury.io/py/bounded-pool)
 
-Simplistic and universal bounded pool executer that allows to process N tasks
+Simplistic and universal bounded pool executor that allows to process N tasks
 as the same time while limiting size of the queue. Tasks can be functions or
 coroutines. Under the hood `bounded_pool` uses threads or processes, depending
 on used class. Refer to `tests/test_basic.py` for details.
