@@ -1,3 +1,4 @@
+from sys import platform
 import asyncio
 
 import pytest
@@ -33,7 +34,12 @@ async def test_asyncio_executor_sleeps():
 
 @pytest.mark.parametrize('cls', [BoundedThreadPoolExecutor, BoundedProcessPoolExecutor])
 def test_sync_executor_sleeps(cls):
-    with assert_takes(less=1.5):
+    if platform == 'win32':
+        expected_elapsed_max = 1.85
+    else:
+        expected_elapsed_max = 1.5
+
+    with assert_takes(less=expected_elapsed_max):
         with cls(2) as pool:
             with assert_takes(less=0.5):
                 for _ in range(2):
