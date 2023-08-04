@@ -39,8 +39,8 @@ def test_sync_executor_sleeps(cls):
                 for _ in range(2):
                     pool.submit(time.sleep, 1)
 
-    with assert_takes(more=3.5):
+    with assert_takes(more=1.5):
         with cls(1) as pool:
-            with assert_takes(more=3):
+            with assert_takes(more=1):
                 for _ in range(2):
                     pool.submit(time.sleep, 1)
