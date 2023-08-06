@@ -1,6 +1,7 @@
 # bounded_pool
 
 [![PyPI version](https://badge.fury.io/py/bounded-pool.svg)](https://badge.fury.io/py/bounded-pool)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmichaelkryukov%2Fbounded_pool.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmichaelkryukov%2Fbounded_pool?ref=badge_shield)
 
 Simplistic and universal bounded pool executor that allows to process N tasks
 as the same time while limiting size of the queue. Tasks can be functions or
@@ -33,3 +34,7 @@ def test_example():
         assert future.done()
         assert future.result() is None
 ```
+
+## License
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmichaelkryukov%2Fbounded_pool.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmichaelkryukov%2Fbounded_pool?ref=badge_large)
