@@ -23,7 +23,7 @@ async def test_asyncio_executor_queues():
 
 
 @pytest.mark.parametrize('cls', [BoundedThreadPoolExecutor, BoundedProcessPoolExecutor])
-def test_sync_executor_sleeps(cls):
+def test_sync_executor_queues(cls):
     with cls(1, 1) as pool:
         with assert_takes(more=1, less=2):
             with assert_takes(less=0.5):

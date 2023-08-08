@@ -4,7 +4,7 @@ import threading
 from abc import ABC
 from asyncio import Semaphore, Task, create_task
 from concurrent.futures import Executor, ProcessPoolExecutor, ThreadPoolExecutor
-from typing import List, Optional
+from typing import Optional
 
 
 class BoundedExecutor(ABC):
@@ -31,27 +31,24 @@ class BoundedAsyncioPoolExecutor(BoundedExecutor):
         return min(32, (os.cpu_count() or 1) + 4)
 
     async def __aenter__(self):
-        self._tasks: List[Task] = []
         self._semaphore = Semaphore(self._semaphore_size)
         return self
 
     async def __aexit__(self, exc_type, exc_value, traceback):
-        while self._tasks:
-            await self._tasks.pop()
+        # make sure no tasks being executed
+        for _ in range(self._semaphore_size):
+            await self._semaphore.acquire()
 
     async def _acquire(self):
         await self._semaphore.acquire()
 
     def _release(self, fut):
-        if fut in self._tasks:
-            self._tasks.remove(fut)
         self._semaphore.release()
 
     async def submit(self, coro, *args, **kwargs) -> Task:
         await self._acquire()
         task = create_task(coro(*args, **kwargs))
         task.add_done_callback(self._release)
-        self._tasks.append(task)
         return task
 
 

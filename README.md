@@ -13,6 +13,9 @@ Tasks will only be submited when there are available workers (specified by
 tasks than amount of available workers (so workers won't have to wait for
 task creation). Refer to `tests/test_queue.py` for details.
 
+Exceptions inside of the tasks craeted with executors are ignored. Refer
+to `tests/test_exceptions.py` for details.
+
 ## Example / Showcase
 
 ```py

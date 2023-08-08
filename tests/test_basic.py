@@ -21,15 +21,11 @@ async def test_asyncio_executor_sleeps():
                 for _ in range(2):
                     await pool.submit(asyncio.sleep, 1)
 
-        assert not pool._tasks
-
     async with aassert_takes(more=3.5):
         async with BoundedAsyncioPoolExecutor(1) as pool:
             async with aassert_takes(more=3):
                 for _ in range(4):
                     await pool.submit(asyncio.sleep, 1)
-
-        assert not pool._tasks
 
 
 @pytest.mark.parametrize('cls', [BoundedThreadPoolExecutor, BoundedProcessPoolExecutor])
